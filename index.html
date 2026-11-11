@@ -1,0 +1,435 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta property="og:title" content="Niño D. Agustin, full-stack developer">
+<meta property="og:description" content="Python, Django and PostgreSQL developer in Mawab, Davao de Oro, Philippines. Projects, test results and experience.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://enclaveagustin.github.io/">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2214%22 fill=%22%232E6A4E%22/%3E%3Ctext x=%2232%22 y=%2242%22 font-family=%22Arial%22 font-weight=%22700%22 font-size=%2226%22 fill=%22white%22 text-anchor=%22middle%22%3EN%C3%91%3C/text%3E%3C/svg%3E">
+<title>Niño D. Agustin</title>
+<meta name="description" content="Niño D. Agustin, full-stack developer (Python, Django, PostgreSQL) based in Mawab, Davao de Oro, Philippines.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: two columns on desktop. A sticky "identity" rail on the left; work reads down the right like a changelog. Stacks to one column on phones. */
+:root {
+  --bg: #F4F5F1;
+  --surface: #FFFFFF;
+  --ink: #16201B;
+  --muted: #5B6862;
+  --line: #DCE1DB;
+  --accent: #2E6A4E;      /* mangrove green */
+  --accent-soft: #E3EEE7;
+  --pass: #2E6A4E;
+  --display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+  --s1: .25rem; --s2: .5rem; --s3: .75rem; --s4: 1rem; --s5: 1.5rem; --s6: 2rem; --s7: 3rem; --s8: 4.5rem;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0F1513; --surface: #161F1B; --ink: #E5ECE7; --muted: #9AA9A1; --line: #26332D;
+    --accent: #7CC6A0; --accent-soft: #1C2D25; --pass: #7CC6A0; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0F1513; --surface: #161F1B; --ink: #E5ECE7; --muted: #9AA9A1; --line: #26332D;
+  --accent: #7CC6A0; --accent-soft: #1C2D25; --pass: #7CC6A0; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; } }
+body {
+  background: var(--bg); color: var(--ink);
+  font-family: var(--body); font-size: 1rem; line-height: 1.6;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+a { color: var(--accent); text-underline-offset: 3px; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+h1, h2, h3 { font-family: var(--display); text-wrap: balance; margin: 0; letter-spacing: -0.01em; }
+p { margin: 0; }
+ul { margin: 0; padding-left: 1.1rem; }
+li + li { margin-top: .35rem; }
+
+.wrap { max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: 330px minmax(0, 1fr); gap: var(--s8); padding-block: var(--s7) var(--s8); }
+
+/* ---------- identity rail ---------- */
+.rail { position: sticky; top: calc(env(safe-area-inset-top, 0px) + var(--s6)); align-self: start; display: grid; gap: var(--s5); }
+.portrait { width: 132px; height: 132px; border-radius: 50%; object-fit: cover; background: var(--accent-soft); border: 3px solid var(--surface); box-shadow: 0 0 0 1px var(--line); }
+.name { font-size: clamp(2.1rem, 4vw, 2.75rem); font-weight: 800; line-height: 1.02; }
+.role { font-family: var(--mono); font-size: .85rem; color: var(--muted); display: grid; gap: .1rem; }
+.status { display: inline-flex; align-items: center; gap: var(--s2); font-size: .85rem; background: var(--accent-soft); color: var(--ink); padding: .35rem .7rem; border-radius: 999px; width: fit-content; }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--pass); box-shadow: 0 0 0 3px color-mix(in srgb, var(--pass) 25%, transparent); }
+.nav { display: grid; gap: .2rem; font-size: .95rem; }
+.nav a { color: var(--muted); text-decoration: none; padding: .15rem 0; }
+.nav a:hover { color: var(--ink); }
+.contact { display: grid; gap: var(--s3); font-size: .92rem; border-top: 1px solid var(--line); padding-top: var(--s5); }
+.contact .row { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s2); }
+.label { font-family: var(--mono); font-size: .72rem; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); }
+.copy { font: inherit; font-size: .8rem; border: 1px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 6px; padding: .15rem .55rem; cursor: pointer; }
+.copy:hover { border-color: var(--accent); }
+.email { font-family: var(--mono); font-size: .88rem; user-select: all; }
+
+/* ---------- main ---------- */
+main { display: grid; gap: var(--s8); min-width: 0; }
+section { display: grid; gap: var(--s5); min-width: 0; }
+.eyebrow { font-family: var(--mono); font-size: .78rem; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); }
+.h2 { font-size: clamp(1.6rem, 3vw, 2.1rem); font-weight: 700; }
+.lede { font-family: var(--display); font-size: clamp(1.45rem, 2.8vw, 2.05rem); line-height: 1.25; font-weight: 600; max-width: 30ch; }
+.prose { max-width: 64ch; color: var(--ink); display: grid; gap: var(--s4); }
+.prose .muted { color: var(--muted); }
+
+/* test-run proof strip: the one bold device */
+.runs { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; font-family: var(--mono); font-size: .86rem; overflow-x: auto; }
+.runs-head { display: flex; justify-content: space-between; gap: var(--s4); padding: .6rem 1rem; border-bottom: 1px solid var(--line); color: var(--muted); font-size: .75rem; }
+.runs table { width: 100%; border-collapse: collapse; min-width: 520px; }
+.runs td { padding: .55rem 1rem; border-bottom: 1px dashed var(--line); vertical-align: top; }
+.runs tr:last-child td { border-bottom: 0; }
+.runs .ok { color: var(--pass); font-weight: 500; white-space: nowrap; }
+.runs .num { font-variant-numeric: tabular-nums; white-space: nowrap; color: var(--ink); font-weight: 500; }
+.runs .what { color: var(--muted); }
+
+/* case studies */
+.work { display: grid; gap: var(--s7); }
+.case { display: grid; gap: var(--s4); padding-top: var(--s6); border-top: 1px solid var(--line); }
+.case:first-child { border-top: 0; padding-top: 0; }
+.case-top { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: var(--s2) var(--s5); }
+.case h3 { font-size: clamp(1.3rem, 2.4vw, 1.65rem); font-weight: 700; }
+.where { font-family: var(--mono); font-size: .8rem; color: var(--muted); }
+.case .sum { max-width: 64ch; }
+.cols { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: var(--s6); }
+.cols h4 { font-family: var(--mono); font-size: .74rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 0 0 var(--s2); font-weight: 500; }
+.cols ul { font-size: .95rem; }
+.tags { display: flex; flex-wrap: wrap; gap: .35rem; }
+.tag { font-family: var(--mono); font-size: .76rem; border: 1px solid var(--line); border-radius: 6px; padding: .1rem .45rem; color: var(--ink); background: var(--surface); }
+.outcome { font-size: .95rem; border-left: 3px solid var(--accent); padding-left: var(--s4); max-width: 64ch; }
+.links { display: flex; flex-wrap: wrap; gap: var(--s4); font-size: .9rem; }
+.ext::after { content: " ↗"; }
+
+/* smaller entries */
+.grid2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s5); }
+.panel { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: var(--s5); display: grid; gap: var(--s3); align-content: start; }
+.panel h3 { font-size: 1.15rem; font-weight: 700; }
+.panel ul { font-size: .93rem; }
+.sample { font-family: var(--mono); font-size: .82rem; background: var(--accent-soft); border-radius: 8px; padding: var(--s3) var(--s4); display: grid; gap: .25rem; }
+.sample .tally { display: flex; flex-wrap: wrap; gap: var(--s4); font-variant-numeric: tabular-nums; }
+
+/* toolkit */
+.kit { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s5) var(--s6); }
+.kit h3 { font-family: var(--mono); font-size: .76rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 500; margin-bottom: var(--s2); }
+
+/* timeline */
+.timeline { display: grid; gap: 0; border-left: 2px solid var(--line); margin-left: .3rem; }
+.t { display: grid; grid-template-columns: 9.5rem minmax(0, 1fr); gap: var(--s4); padding: 0 0 var(--s5) var(--s5); position: relative; }
+.t::before { content: ""; position: absolute; left: -7px; top: .45rem; width: 12px; height: 12px; border-radius: 50%; background: var(--bg); border: 2px solid var(--accent); }
+.t.now::before { background: var(--accent); }
+.t .when { font-family: var(--mono); font-size: .8rem; color: var(--muted); font-variant-numeric: tabular-nums; padding-top: .15rem; }
+.t .what strong { display: block; font-weight: 600; }
+.t .what span { color: var(--muted); font-size: .92rem; }
+
+footer { font-size: .85rem; color: var(--muted); border-top: 1px solid var(--line); padding-top: var(--s5); }
+
+@media (max-width: 920px) {
+  .wrap { grid-template-columns: minmax(0, 1fr); gap: var(--s7); padding-block: var(--s6) var(--s7); }
+  .rail { position: static; }
+  .nav { display: none; }
+  .cols, .grid2, .kit { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 520px) {
+  .t { grid-template-columns: minmax(0, 1fr); gap: .15rem; }
+}
+</style>
+<style>:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}body{margin:0}img{max-width:100%}</style>
+</head>
+<body>
+
+
+<div class="wrap">
+  <aside class="rail" aria-label="About Niño">
+    <img class="portrait" src="data:image/webp;base64,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" alt="Portrait of Niño D. Agustin" width="132" height="132">
+    <div>
+      <h1 class="name">Niño D.<br>Agustin</h1>
+    </div>
+    <div class="role">
+      <span>Full-stack developer</span>
+      <span>Python · Django · PostgreSQL</span>
+      <span>Mawab, Davao de Oro, PH (UTC+8)</span>
+    </div>
+    <span class="status"><span class="dot" aria-hidden="true"></span>Open to remote roles</span>
+    <nav class="nav" aria-label="Sections">
+      <a href="#work">Selected work</a>
+      <a href="#beyond">QA, analysis &amp; teaching</a>
+      <a href="#toolkit">Toolkit</a>
+      <a href="#experience">Experience</a>
+    </nav>
+    <div class="contact">
+      <div class="row"><span class="label">Email</span></div>
+      <div class="row"><span class="email" id="email">ninoagustin16@gmail.com</span><button class="copy" id="copy-email" type="button">Copy</button></div>
+      <div class="row"><span class="label">Elsewhere</span></div>
+      <div class="row"><a class="ext" href="https://www.linkedin.com/in/jklmnino01" target="_blank" rel="noopener">LinkedIn</a><a class="ext" href="https://github.com/enclaveagustin" target="_blank" rel="noopener">GitHub</a></div>
+    </div>
+  </aside>
+
+  <main>
+    <section id="intro" aria-labelledby="intro-h">
+      <p class="eyebrow">About</p>
+      <h2 class="lede" id="intro-h">I build business systems that replace spreadsheets and paper logbooks, and I write the tests that prove they work.</h2>
+      <div class="prose">
+        <p>I'm a full-stack software developer at Freckles Graphics, working remotely on eFORCE, a B2B apparel management platform used by sales teams and customers. My day-to-day is Django REST Framework and PostgreSQL: payments, ledgers, order workflows, and the performance work that keeps them fast.</p>
+        <p>Before that I spent over two years at NuevaSolTech building enterprise web apps in Java and MySQL, and doing the QA, requirements and user-acceptance testing around them. That mix means I'm comfortable on both sides of a ticket: writing the code, and checking it does what the business actually needs.</p>
+        <p class="muted">I've also taught Artificial Intelligence, Software Engineering and IT courses at St. Mary's College of Tagum, and I do freelance research and statistical analysis.</p>
+      </div>
+    </section>
+
+    <section aria-labelledby="runs-h">
+      <p class="eyebrow" id="runs-h">Test runs from the projects below</p>
+      <div class="runs" role="region" aria-label="Test results by project" tabindex="0">
+        <div class="runs-head"><span>$ project summary</span><span>4 projects</span></div>
+        <table>
+          <tbody>
+            <tr><td class="ok">✓ passed</td><td class="num">~140 tests</td><td class="what">eFORCE customer credit ledger (Django, PostgreSQL)</td></tr>
+            <tr><td class="ok">✓ passed</td><td class="num">134 tests</td><td class="what">Copra logbook: 78 unit · 39 integration · 17 frontend</td></tr>
+            <tr><td class="ok">✓ passed</td><td class="num">125 tests</td><td class="what">Student Records System security suite, two phases</td></tr>
+            <tr><td class="ok">✓ fixed</td><td class="num">~20s → &lt;1s</td><td class="what">eFORCE report page after an N+1 query fix</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="work" aria-labelledby="work-h">
+      <p class="eyebrow">Selected work</p>
+      <h2 class="h2" id="work-h">Things I've built</h2>
+      <div class="work">
+
+        <article class="case" aria-labelledby="c1">
+          <div class="case-top">
+            <h3 id="c1">eFORCE</h3>
+            <span class="where">Freckles Graphics, Inc. · Dec 2025 – present · remote</span>
+          </div>
+          <p class="sum">An enterprise B2B apparel management platform. I build features across the Django backend, REST APIs and front end, with a focus on money, data integrity and safe releases.</p>
+          <div class="cols">
+            <div>
+              <h4>What I did</h4>
+              <ul>
+                <li>Designed a customer credit system on an append-only ledger with Decimal-safe services, row-level locking and database-enforced idempotency. It replaced a manual spreadsheet.</li>
+                <li>Built a one-time Stripe payment flow for customers without accounts, using expiring single-use tokens, plus the full order-to-payment pipeline and PDF receipts.</li>
+                <li>Led a migration from single-design to multi-design orders. After an outage in the first rollout, rebuilt it around shadow-mode validation, feature-flagged canary stages and a kill switch.</li>
+                <li>Fixed an N+1 query regression that cut a report page from about 20 seconds to under one.</li>
+                <li>Built a centralized product manager with debounced auto-save and a design-placement tool on a normalized 0–1 coordinate system.</li>
+                <li>Automated shipping weights from three vendor catalog APIs, and generated garment mockups from production artwork.</li>
+              </ul>
+            </div>
+            <div>
+              <h4>Stack</h4>
+              <div class="tags"><span class="tag">Python</span><span class="tag">Django</span><span class="tag">DRF</span><span class="tag">PostgreSQL</span><span class="tag">Redis</span><span class="tag">Alpine.js</span><span class="tag">JavaScript</span><span class="tag">Stripe</span></div>
+            </div>
+          </div>
+          <div class="links"><a class="ext" href="https://launcheforce.com/" target="_blank" rel="noopener">launcheforce.com</a></div>
+        </article>
+
+        <article class="case" aria-labelledby="c2">
+          <div class="case-top">
+            <h3 id="c2">Copra Buy-and-Sell Digital Logbook</h3>
+            <span class="where">Freelance · Mawab, Davao de Oro</span>
+          </div>
+          <p class="sum">A full-stack logbook for a local copra trading business, replacing paper records for sellers, transactions, credits, payments, inventory and reports. It runs offline as a standalone desktop app.</p>
+          <div class="cols">
+            <div>
+              <h4>What I did</h4>
+              <ul>
+                <li>Built the React 19 + TypeScript single-page app with Ant Design and custom theming.</li>
+                <li>Structured the ASP.NET Core 10 backend in clean layers: Domain, Application, Infrastructure, API.</li>
+                <li>Designed the SQLite schema with EF Core migrations, soft-delete filters and an audit interceptor.</li>
+                <li>Implemented credit and loan rules: 10% / 20% interest tiers by loan age, balance reduction and multi-loan consolidation.</li>
+                <li>Added JWT auth (15-minute access tokens, 7-day HttpOnly refresh cookies), PDF and Excel reports, and daily backups with 30-day retention.</li>
+              </ul>
+            </div>
+            <div>
+              <h4>Stack</h4>
+              <div class="tags"><span class="tag">C#</span><span class="tag">ASP.NET Core 10</span><span class="tag">React 19</span><span class="tag">TypeScript</span><span class="tag">SQLite</span><span class="tag">EF Core</span><span class="tag">JWT</span><span class="tag">xUnit</span><span class="tag">Vitest</span></div>
+            </div>
+          </div>
+          <p class="outcome">Delivered a fully tested, offline-capable app that covers the whole trading workflow, from onboarding a seller to the financial report, with no paper left.</p>
+          <div class="links"><a class="ext" href="https://github.com/enclaveagustin/copra-buy-and-sell-digital-logbook-android-ios" target="_blank" rel="noopener">Android / iOS app on GitHub</a><span class="where">Web app code available on request</span></div>
+        </article>
+
+        <article class="case" aria-labelledby="c3">
+          <div class="case-top">
+            <h3 id="c3">Student Records Management System</h3>
+            <span class="where">Freelance · Tuboran National High School</span>
+          </div>
+          <p class="sum">A school administration system for student records, academic documents, payments and reports, built for Philippine schools as an offline desktop app with role-based access.</p>
+          <div class="cols">
+            <div>
+              <h4>What I did</h4>
+              <ul>
+                <li>Built the interface in Vue 3, TypeScript and Tailwind CSS.</li>
+                <li>Wrote FastAPI endpoints for auth, student records, payments, reports, audit trail and chat.</li>
+                <li>Hardened security: CSRF protection, rate limiting, account lockout, bcrypt, HttpOnly cookies, token rotation and CSP headers.</li>
+                <li>Tuned SQLite (WAL mode) for offline use and packaged the app as one Windows executable for LAN deployment.</li>
+              </ul>
+            </div>
+            <div>
+              <h4>Stack</h4>
+              <div class="tags"><span class="tag">Vue 3</span><span class="tag">TypeScript</span><span class="tag">Python</span><span class="tag">FastAPI</span><span class="tag">SQLite</span><span class="tag">Tailwind CSS</span><span class="tag">PyInstaller</span></div>
+            </div>
+          </div>
+          <p class="outcome">Feature-complete for four roles (SuperAdmin, Administrator, Adviser, Teacher), passing all 125 security tests, and shipped as a single .exe for the school.</p>
+          <div class="links"><span class="where">Code available on request</span></div>
+        </article>
+
+        <article class="case" aria-labelledby="c4">
+          <div class="case-top">
+            <h3 id="c4">Girl Scouts of the Philippines systems</h3>
+            <span class="where">NuevaSolTech Co. Inc. · Jul 2023 – Nov 2025</span>
+          </div>
+          <p class="sum">Modules for enterprise web systems used by the Girl Scouts of the Philippines and internal teams, covering both the interface and the business logic behind it.</p>
+          <div class="cols">
+            <div>
+              <h4>What I did</h4>
+              <ul>
+                <li>Developed and maintained enterprise web applications in Java, JSF and PrimeFaces.</li>
+                <li>Designed, implemented and optimized MySQL database structures.</li>
+                <li>Built responsive UI components with HTML5, CSS and JavaScript.</li>
+                <li>Debugged and improved performance and stability with the QA and product teams, and produced reports with BIRT.</li>
+              </ul>
+            </div>
+            <div>
+              <h4>Stack</h4>
+              <div class="tags"><span class="tag">Java</span><span class="tag">JSF</span><span class="tag">PrimeFaces</span><span class="tag">MySQL</span><span class="tag">JavaScript</span><span class="tag">BIRT</span></div>
+            </div>
+          </div>
+          <div class="links">
+            <a class="ext" href="https://girlscoutsph.com/gspssa/" target="_blank" rel="noopener">girlscoutsph.com/gspssa</a>
+            <a class="ext" href="https://girlscoutsph.com/gspmms/" target="_blank" rel="noopener">girlscoutsph.com/gspmms</a>
+          </div>
+        </article>
+
+        <article class="case" aria-labelledby="c6">
+          <div class="case-top">
+            <h3 id="c6">College of Law social media toolkit</h3>
+            <span class="where">Personal project · Python</span>
+          </div>
+          <p class="sum">An offline toolkit for a college of law's social media team: branded photo and video watermarking, preview exports and quality presets.</p>
+          <div class="links"><a class="ext" href="https://github.com/enclaveagustin/college-of-law-social-media-manager" target="_blank" rel="noopener">View on GitHub</a></div>
+        </article>
+
+        <article class="case" aria-labelledby="c5">
+          <div class="case-top">
+            <h3 id="c5">Cooperative management system UI</h3>
+            <span class="where">Internship · Jun – Aug 2022</span>
+          </div>
+          <p class="sum">Rebuilt pages of a cooperative management system in HTML5, CSS3, JavaScript and Bootstrap, improving layout, spacing, accessibility and mobile behavior.</p>
+        </article>
+
+      </div>
+    </section>
+
+    <section id="beyond" aria-labelledby="beyond-h">
+      <p class="eyebrow">Beyond the code</p>
+      <h2 class="h2" id="beyond-h">QA, analysis and teaching</h2>
+      <div class="grid2">
+        <div class="panel">
+          <h3>QA: feature validation</h3>
+          <p class="where">NuevaSolTech · Product Specialist</p>
+          <ul>
+            <li>Wrote test scenarios and acceptance criteria before release.</li>
+            <li>Logged bugs with exact steps, screenshots, and expected vs. actual results.</li>
+            <li>Checked backend data with SQL, then retested fixes after deployment.</li>
+          </ul>
+          <div class="sample" aria-label="Sample test case list">
+            <span class="label">Sample: login and role access</span>
+            <span>correct login · wrong password · session handling · role access · protected pages · logout</span>
+          </div>
+        </div>
+        <div class="panel">
+          <h3>Requirements and UAT</h3>
+          <p class="where">NuevaSolTech · Functional Assistant</p>
+          <ul>
+            <li>Ran requirements sessions and turned client needs into user stories and acceptance criteria.</li>
+            <li>Mapped workflows for developers and prepared UAT scripts.</li>
+          </ul>
+          <div class="sample" aria-label="Sample UAT summary">
+            <span class="label">Sample UAT summary</span>
+            <span class="tally"><span>Passed 18</span><span>Failed 3</span><span>Rechecking 2</span></span>
+          </div>
+        </div>
+        <div class="panel">
+          <h3>College instructor</h3>
+          <p class="where">St. Mary's College of Tagum · Jan 2025 – May 2026</p>
+          <ul>
+            <li>Introduction to Artificial Intelligence, Software Engineering II, IT Tools in Business, Living in the IT Era, Game Development with Unity, Information Assurance &amp; Security.</li>
+            <li>Project-based labs, coding activities and mentoring on coursework, research and careers.</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h3>Academic researcher</h3>
+          <p class="where">Freelance</p>
+          <ul>
+            <li>Research design (qualitative and quantitative), surveys and interview guides.</li>
+            <li>Statistical analysis and interpretation in SPSS, Jamovi and Excel.</li>
+            <li>Topics include information systems, technology adoption and SME process improvement.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="toolkit" aria-labelledby="toolkit-h">
+      <p class="eyebrow">Toolkit</p>
+      <h2 class="h2" id="toolkit-h">What I work with</h2>
+      <div class="kit">
+        <div><h3>Backend</h3><div class="tags"><span class="tag">Python</span><span class="tag">Django</span><span class="tag">DRF</span><span class="tag">FastAPI</span><span class="tag">Flask</span><span class="tag">Java</span><span class="tag">JSF / PrimeFaces</span><span class="tag">Spring Boot</span><span class="tag">C# / ASP.NET Core</span><span class="tag">PHP / Laravel</span><span class="tag">Express.js</span></div></div>
+        <div><h3>Frontend</h3><div class="tags"><span class="tag">JavaScript</span><span class="tag">TypeScript</span><span class="tag">React</span><span class="tag">Vue.js</span><span class="tag">Alpine.js</span><span class="tag">HTML5</span><span class="tag">CSS3 / SCSS</span><span class="tag">Tailwind CSS</span><span class="tag">Bootstrap</span></div></div>
+        <div><h3>Data</h3><div class="tags"><span class="tag">PostgreSQL</span><span class="tag">MySQL</span><span class="tag">SQLite</span><span class="tag">MongoDB</span><span class="tag">Redis</span><span class="tag">Supabase</span><span class="tag">Firebase</span><span class="tag">REST APIs</span><span class="tag">GraphQL</span></div></div>
+        <div><h3>DevOps</h3><div class="tags"><span class="tag">Git / GitHub</span><span class="tag">Docker</span><span class="tag">CI/CD</span><span class="tag">AWS</span><span class="tag">Azure</span><span class="tag">Kubernetes</span><span class="tag">MCP</span></div></div>
+        <div><h3>Testing &amp; QA</h3><div class="tags"><span class="tag">xUnit</span><span class="tag">Vitest</span><span class="tag">Postman</span><span class="tag">Jira</span><span class="tag">UAT</span><span class="tag">Functional testing</span><span class="tag">Performance testing</span></div></div>
+        <div><h3>Design &amp; research</h3><div class="tags"><span class="tag">Figma</span><span class="tag">Canva</span><span class="tag">diagrams.net</span><span class="tag">SPSS</span><span class="tag">Jamovi</span><span class="tag">Zotero</span></div></div>
+      </div>
+    </section>
+
+    <section id="experience" aria-labelledby="exp-h">
+      <p class="eyebrow">Experience</p>
+      <h2 class="h2" id="exp-h">Where I've worked</h2>
+      <div class="timeline">
+        <div class="t now"><span class="when">Dec 2025 – now</span><div class="what"><strong>Full Stack Software Developer, Freckles Graphics, Inc.</strong><span>Remote, US company based in Lafayette, Indiana</span></div></div>
+        <div class="t"><span class="when">Jan 2025 – May 2026</span><div class="what"><strong>College Instructor, St. Mary's College of Tagum</strong><span>Tagum City</span></div></div>
+        <div class="t"><span class="when">Jul 2023 – Nov 2025</span><div class="what"><strong>Junior Web Developer, NuevaSolTech Co. Inc.</strong><span>Also Product Specialist (Oct 2024 – Aug 2025) and Junior Functional Assistant (Jan – Aug 2025)</span></div></div>
+        <div class="t"><span class="when">Jun 2018 – Jul 2026</span><div class="what"><strong>Academic Researcher, Consultant &amp; Statistician</strong><span>Freelance</span></div></div>
+        <div class="t"><span class="when">Jun – Aug 2022</span><div class="what"><strong>Internship Trainee, NuevaSolTech Co. Inc.</strong><span>Front-end development</span></div></div>
+        <div class="t"><span class="when">2019 – 2023</span><div class="what"><strong>BS Computer Science, Data Science</strong><span>St. Mary's College of Tagum</span></div></div>
+        <div class="t"><span class="when">Mar – May 2025</span><div class="what"><strong>Artificial Intelligence with Python</strong><span>Harvard Online</span></div></div>
+      </div>
+    </section>
+
+    <footer>
+      <p>Niño D. Agustin · ninoagustin16@gmail.com · English, Cebuano, Tagalog</p>
+    </footer>
+  </main>
+</div>
+
+<script>
+(function () {
+  var btn = document.getElementById('copy-email');
+  var email = document.getElementById('email');
+  btn.addEventListener('click', function () {
+    var text = email.textContent.trim();
+    function selectIt() {
+      var r = document.createRange(); r.selectNodeContents(email);
+      var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+      btn.textContent = 'Selected';
+    }
+    try {
+      navigator.clipboard.writeText(text).then(function () { btn.textContent = 'Copied'; }, selectIt);
+    } catch (e) { selectIt(); }
+    setTimeout(function () { btn.textContent = 'Copy'; }, 2000);
+  });
+})();
+</script>
+
+</body>
+</html>
